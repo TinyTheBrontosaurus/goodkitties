@@ -10,6 +10,7 @@ def main(_argv):
     spaces_general = tuple(range(1, 11)) + ("hole", "t")
     # Special spaces
     spaces_special = ("DR-bed", "HW-bed", "HW-crate", "HW-hole-2", "HW-tree", "LR-bed")
+    # Put all the spaces together and sort them
     node_labels = tuple("-".join([str(r), str(s)]) for r in rooms for s in spaces_general) + spaces_special
     node_labels = natsort.natsorted(node_labels)
 
@@ -53,8 +54,8 @@ def main(_argv):
         ("DR-4", "DR-bed"),
         ("DR-5", "DR-6"),
         ("DR-5", "DR-9"),
-        ("DR-5", "DR-crate"),
-        ("DR-5", "DR-tree"),
+        ("DR-5", "HW-crate"),
+        ("DR-5", "HW-tree"),
         ("DR-6", "DR-9"),
         ("DR-6", "DR-t"),
         ("DR-7", "DR-8"),
@@ -94,11 +95,12 @@ def main(_argv):
         ("HW-6", "LR-1"),
         ("HW-7", "HW-8"),
         ("HW-7", "HW-9"),
-        ("HW-7", "HW-hole"),
+        ("HW-7", "HW-hole-2"),
         ("HW-8", "LR-3"),
         ("HW-8", "LR-bed"),
+        ("HW-8", "HW-hole-2"),
         ("HW-9", "HW-10"),
-        ("HW-9", "HW-hole"),
+        ("HW-9", "HW-hole-2"),
         ("HW-10", "BA-9"),
         # 21:25
         ("KI-1", "KI-2"),
@@ -168,67 +170,12 @@ def main(_argv):
         ("OF-7", "OF-10"),
         ("OF-8", "OF-10"),
         ("OF-9", "OF-10"),
-        ("OF-10", "OF-T"),
+        ("OF-10", "OF-t"),
         #21:36
     ])
 
-
-    office = nx.Graph()
-
-    office.add_nodes_from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "hole", "T"])
-    # Note: For ease, order all the edges in numerical order. With low #'d node always going first
-    office.add_edges_from([
-        (1, 2),
-        (1, 4),
-        (2, 3),
-        (2, 5),
-        (2, "hole"),
-        (3, 5),
-        (3, 8),
-        (3, "hole"),
-        (4, 5),
-        (4, 7),
-        (5, 6),
-        (6, 7),
-        (6, 8),
-        (6, 10),
-        (7, 10),
-        (8, 10),
-        (9, 10),
-        (10, "T"),
-        ])
-
-    hallway = nx.Graph()
-    hallway.add_nodes_from(list(range(1, 11)) + ["bed1", "bed2", "crate", "hole1", "hole2", "T", "tree"])
-    hallway.add_edges_from([
-        (1, 2),
-        (1, 3),
-        (1, "bed1"),
-        (1, "hole1"),
-        (2, 3),
-        (2, "bed1"),
-        (3, "T"),
-        (4, 5),
-        (4, "crate"),
-        (4, "T"),
-        (5, 6),
-        (5, "crate"),
-        (5, "tree"),
-        (6, 7),
-        (6, "tree"),
-        (7, 8),
-        (7, 9),
-        (7, "hole2"),
-        (8, "bed2"),
-        (8, "hole2"),
-        (9, 10),
-        (9, "hole2"),
-    ])
-
-    subax1 = plt.subplot(1, 2, 1)
-    nx.draw(office, with_labels=True, font_weight='bold')
-    subax2 = plt.subplot(1, 2, 2)
-    nx.draw(hallway, with_labels=True, font_weight='bold')
+    subax1 = plt.subplot(1, 1, 1)
+    nx.draw(board, with_labels=True, font_weight='bold')
     plt.show()
 
 
