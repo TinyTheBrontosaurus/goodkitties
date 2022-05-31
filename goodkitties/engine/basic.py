@@ -14,6 +14,7 @@ def main(_argv):
     node_labels = tuple("-".join([str(r), str(s)]) for r in rooms for s in spaces_general) + spaces_special
     node_labels = natsort.natsorted(node_labels)
 
+    # Add all the edges. From board v2 (played 5.30.2022)
     board = nx.Graph()
     board.add_nodes_from(node_labels)
     board.add_edges_from([
@@ -174,6 +175,7 @@ def main(_argv):
         #21:36
     ])
 
+    # Auto render the board
     subax1 = plt.subplot(1, 1, 1)
     nx.draw(board, with_labels=True, font_weight='bold')
     plt.show()
