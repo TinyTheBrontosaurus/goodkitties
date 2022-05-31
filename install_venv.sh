@@ -9,7 +9,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 # Hint how to activate
-echo . ./${VENV_NAME}/bin/activate
+echo source ./${VENV_NAME}/bin/activate
 
 
 

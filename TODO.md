@@ -13,4 +13,6 @@ Next gen
 [] NEAT
 [] Smarter AI
 [] Configurable rules
+[] Visualize board
+[] Playable game
 
