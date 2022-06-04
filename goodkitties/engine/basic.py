@@ -37,8 +37,9 @@ def generate_item():
 
     item_selected = None
     for item_check, norm_max in zip(items, normalized):
-       if die < norm_max:
-           item_selected = item_check
+        if die < norm_max:
+            item_selected = item_check
+            break
     return item_selected
 
 
