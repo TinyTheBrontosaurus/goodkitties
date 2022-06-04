@@ -1,9 +1,48 @@
 import networkx as nx
 import natsort
 import matplotlib.pyplot as plt
+import random
 
 
 def main(_argv):
+    random.seed(17)
+    # Auto render the board
+    _ = plt.subplot(1, 1, 1)
+    nx.draw_spring(board_v2(), with_labels=True, font_weight='bold')
+    plt.show()
+
+
+def generate_item():
+
+    item_probability = {
+        "electronics": 1,
+        "food": 0,
+        "knickknacks": 1,
+        "string": 1,
+        "toy": 1,
+    }
+
+
+    normalized = []
+    items = []
+    last = 0.0
+    for item, prob in item_probability.items():
+        if prob <= 0.:
+            continue
+        last += prob
+        items.append(item)
+        normalized.append(last)
+
+    die = random.uniform(0, normalized[-1])
+
+    item_selected = None
+    for item_check, norm_max in zip(items, normalized):
+       if die < norm_max:
+           item_selected = item_check
+    return item_selected
+
+
+def board_v2():
     # All the rooms
     rooms = ("BA", "DR", "HW", "KI", "LR", "OF",)
     # Every room has these spaces
@@ -175,20 +214,9 @@ def main(_argv):
         #21:36
     ])
 
-    # Auto render the board
-    subax1 = plt.subplot(1, 1, 1)
-    nx.draw(board, with_labels=True, font_weight='bold')
-    plt.show()
+    return board
 
 
-def demo():
-    """
-    https://networkx.org/documentation/stable/tutorial.html
-    :return:
-    """
-    G = nx.petersen_graph()
-    subax1 = plt.subplot(121)
-    nx.draw(G, with_labels=True, font_weight='bold')
-    subax2 = plt.subplot(122)
-    nx.draw_shell(G, nlist=[range(5, 10), range(5)], with_labels=True, font_weight='bold')
-    plt.show()
+
+
+

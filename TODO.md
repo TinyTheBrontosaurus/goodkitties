@@ -1,8 +1,10 @@
-
-[] Create repo, to-do, readme, venv
+Basics
+[x] Create repo, to-do, readme, venv
+[] Repo pic
+[] JIRA board
 
 MVP
-[] Network
+[x] Network
 [] Rules
 [] Metrics
 [] NPC-AI
