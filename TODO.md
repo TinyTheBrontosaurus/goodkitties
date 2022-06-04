@@ -15,4 +15,4 @@ Next gen
 [] Configurable rules
 [] Visualize board
 [] Playable game
-
+[] Add attributes (trees, bushes; fridge; where cats can go, where dogs can't go)
