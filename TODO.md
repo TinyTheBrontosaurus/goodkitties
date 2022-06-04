@@ -1,13 +1,13 @@
 Basics
-[x] Create repo, to-do, readme, venv
+[x] Create repo, to-do, readme, venv v0.0.1
 [] Repo pic for github
 [] JIRA board
 [] Test infra: runner
 [] Test infra: coverage
 
 MVP
-[x] Network
-[x] Probability library
+[x] Network v0.0.1
+[x] Probability library v0.0.2
 [] where are elements on board; find elements on board
 [] Rules
 [] Metrics
