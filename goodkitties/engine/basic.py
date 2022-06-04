@@ -11,65 +11,6 @@ def main(_argv):
     nx.draw_spring(board_v2(), with_labels=True, font_weight='bold')
     plt.show()
 
-def generate_space_on_board():
-    return generate_room(), generate_space_in_room()
-
-
-def generate_room():
-    return generate_from_relative_probability({x: 1 for x in rooms})
-
-
-def generate_space_in_room():
-    return roll_d10()
-
-
-def roll_d10():
-    return roll_d(10)
-
-
-def roll_d6():
-    return roll_d(6)
-
-
-def roll_d(sides: int):
-    val = random.uniform(sides)
-    return int(math.floor(val))
-
-
-def generate_item():
-
-    return generate_from_relative_probability({
-        "electronics": 1,
-        "food": 0,
-        "knickknacks": 1,
-        "string": 1,
-        "toy": 1,
-    })
-
-
-
-def generate_from_relative_probability(option_probability):
-    normalized = []
-    options = []
-    last = 0.0
-    for item, prob in option_probability.items():
-        if prob <= 0.:
-            continue
-        last += prob
-        options.append(item)
-        normalized.append(last)
-    return generate_from_normalized(options, normalized)
-
-
-def generate_from_normalized(options, normalized_probability):
-    die = random.uniform(0, normalized_probability[-1])
-
-    option_selected = None
-    for option_check, norm_max in zip(options, normalized_probability):
-        if die < norm_max:
-            option_selected = option_check
-            break
-    return option_selected
 
 
 # All the rooms
