@@ -5,7 +5,6 @@ import random
 
 
 def main(_argv):
-    random.seed(17)
     # Auto render the board
     _ = plt.subplot(1, 1, 1)
     nx.draw_spring(board_v2(), with_labels=True, font_weight='bold')
@@ -14,33 +13,39 @@ def main(_argv):
 
 def generate_item():
 
-    item_probability = {
+    return generate_from_relative_probability({
         "electronics": 1,
         "food": 0,
         "knickknacks": 1,
         "string": 1,
         "toy": 1,
-    }
+    })
 
 
+
+def generate_from_relative_probability(option_probability):
     normalized = []
-    items = []
+    options = []
     last = 0.0
-    for item, prob in item_probability.items():
+    for item, prob in option_probability.items():
         if prob <= 0.:
             continue
         last += prob
-        items.append(item)
+        options.append(item)
         normalized.append(last)
+    return generate_from_normalized(options, normalized)
 
-    die = random.uniform(0, normalized[-1])
 
-    item_selected = None
-    for item_check, norm_max in zip(items, normalized):
+def generate_from_normalized(options, normalized_probability):
+    die = random.uniform(0, normalized_probability[-1])
+
+    option_selected = None
+    for option_check, norm_max in zip(options, normalized_probability):
         if die < norm_max:
-            item_selected = item_check
+            option_selected = option_check
             break
-    return item_selected
+    return option_selected
+
 
 
 def board_v2():
