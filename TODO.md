@@ -5,6 +5,7 @@ Basics
 
 MVP
 [x] Network
+[] Probability library
 [] Rules
 [] Metrics
 [] NPC-AI

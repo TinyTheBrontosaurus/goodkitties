@@ -1,6 +1,7 @@
 import networkx as nx
 import natsort
 import matplotlib.pyplot as plt
+import math
 import random
 
 
@@ -9,6 +10,30 @@ def main(_argv):
     _ = plt.subplot(1, 1, 1)
     nx.draw_spring(board_v2(), with_labels=True, font_weight='bold')
     plt.show()
+
+def generate_space_on_board():
+    return generate_room(), generate_space_in_room()
+
+
+def generate_room():
+    return generate_from_relative_probability({x: 1 for x in rooms})
+
+
+def generate_space_in_room():
+    return roll_d10()
+
+
+def roll_d10():
+    return roll_d(10)
+
+
+def roll_d6():
+    return roll_d(6)
+
+
+def roll_d(sides: int):
+    val = random.uniform(sides)
+    return int(math.floor(val))
 
 
 def generate_item():
@@ -47,10 +72,10 @@ def generate_from_normalized(options, normalized_probability):
     return option_selected
 
 
+# All the rooms
+rooms = ("BA", "DR", "HW", "KI", "LR", "OF",)
 
 def board_v2():
-    # All the rooms
-    rooms = ("BA", "DR", "HW", "KI", "LR", "OF",)
     # Every room has these spaces
     spaces_general = tuple(range(1, 11)) + ("hole", "t")
     # Special spaces
