@@ -10,7 +10,22 @@ def test_nested_phase():
     actual = [x for x in out]
 
     # Assert
-    assert actual == ["one", "two", "three"]
+    assert actual == [["one"], ["two"], ["three"]]
+
+
+def test_nested_phase_2():
+
+    # Arrange
+    out = state.NestedPhase({"one": None,
+                             "two": state.NestedPhase({"A": None, "B":  None}),
+                             "three": None})
+
+    # Act
+    actual = [x for x in out]
+
+    # Assert
+    assert actual == [["one"], ["two", "A"], ["two", "B"], ["three"]]
+
 
 def test_turn_order():
 

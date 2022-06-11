@@ -1,5 +1,6 @@
 import copy
 from dataclasses import dataclass
+from typing import Dict, Iterable, Optional
 from .board import board_v2
 
 
@@ -14,17 +15,43 @@ class Board:
 
 
 class NestedPhase:
-    def __init__(self, phases: dict):
+    def __init__(self, phases: Dict[str, Optional[Iterable]]):
         self._phases = phases
-        self._phasekey = ""
-        self._phaseiter = None
+        self._key = ""
+        self._child = None
+        self._iter = None
 
     def __iter__(self):
-        self._phaseiter = self._phases.items().__iter__()
+        self._iter = self._phases.items().__iter__()
         return self
 
     def __next__(self):
-        return self._phaseiter.__next__()[0]
+        """
+        Go to the next value. This phase does not go to the next phase until its child is done
+        :return: the value of this and each nested iterator in a list
+        """
+        val = None
+        repeat = True
+        while repeat:
+            repeat = False
+            if self._child is None:
+                self._key, self._child = self._iter.__next__()
+
+                if self._child is not None:
+                    self._child = self._child.__iter__()
+            if self._child is not None:
+                try:
+                    val = self._child.__next__()
+                except StopIteration:
+                    self._child = None
+                    repeat = True
+
+        retval = [self._key]
+        if val is not None:
+            retval += val
+
+        return retval
+
         # if self._first:
         #     self._first = False
         #     self._phasei = 0
