@@ -1,5 +1,5 @@
 from . import probability
-from . import basic
+from . import board
 
 
 def generate_space_on_board():
@@ -7,7 +7,7 @@ def generate_space_on_board():
 
 
 def generate_room():
-    return probability.generate_from_relative_probability({x: 1 for x in basic.rooms})
+    return probability.generate_from_relative_probability({x: 1 for x in board.rooms})
 
 
 def generate_space_in_room():

@@ -1,5 +1,5 @@
 import sys
-from goodkitties.engine.basic import main
+from goodkitties.engine.board import main
 
 
 if __name__ == "__main__":
