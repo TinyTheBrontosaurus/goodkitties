@@ -13,8 +13,49 @@ class Board:
         self._turn_order = None
 
 
+class NestedPhase:
+    def __init__(self, phases: dict):
+        self._phases = phases
+        self._phasekey = ""
+        self._phaseiter = None
+
+    def __iter__(self):
+        self._phaseiter = self._phases.items().__iter__()
+        return self
+
+    def __next__(self):
+        return self._phaseiter.__next__()[0]
+        # if self._first:
+        #     self._first = False
+        #     self._phasei = 0
+        #     if self._phases
+        # else:
+        #     self._phasei += 1
+        # if self._phasei >= len(self._phases):
+        #     raise StopIteration
+
+
+class RoundRobin:
+    def __init__(self, count, _):
+        pass
+
+class Counter:
+    def __init__(self, count):
+        pass
+
 class TurnStage:
-    stages = ["supply", "mice", "kitties", "dog"]
+    stages = {
+        "re-supply": None,
+        "mice": None,
+        "kitties": RoundRobin(4,{#kitty_count, {
+            "draw": None,
+            "check cleanliness": None,
+            "actions": Counter(4),#actions_per_turn),
+            "increase dirtiness": None,
+            "discard": None,
+        }),
+        "dog": None
+    }
     #kitty_order = ["draw", "check cleanliness", "actions", "increase dirtiness", "discard"]
     kitty_stages = ["actions"]
     actions_per_turn = 4

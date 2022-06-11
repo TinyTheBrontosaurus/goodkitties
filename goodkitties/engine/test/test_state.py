@@ -1,6 +1,17 @@
 from goodkitties.engine import state
 
 
+def test_nested_phase():
+
+    # Arrange
+    out = state.NestedPhase({"one": None, "two": None, "three": None})
+
+    # Act
+    actual = [x for x in out]
+
+    # Assert
+    assert actual == ["one", "two", "three"]
+
 def test_turn_order():
 
     # Arrange
