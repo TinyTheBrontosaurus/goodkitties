@@ -4,7 +4,10 @@ from goodkitties.engine import state
 def test_turn_order():
 
     # Arrange
-    out = state.TurnOrder()
+    out = state.TurnController()
 
     # Act
-    actual = [(x. for x in out]
+    actual = [(x.stage, x.kitty_stage, x.actions_left) for x in out]
+
+    # Assert
+    print(actual)
