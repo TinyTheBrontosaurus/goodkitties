@@ -74,7 +74,7 @@ class TurnStage:
                 self.actions_left = self.actions_per_turn
         else:
             # If it is a kitty's turn, check the actions
-            if self.actions_left > 0:
+            if self.actions_left > 1:
                 self.actions_left -= 1
             else:
                 self.kitty_stagei += 1
@@ -89,15 +89,21 @@ class TurnStage:
 class TurnController:
     def __init__(self):
         self.stage = TurnStage()
+        self._first = True
 
     def __iter__(self):
-        self.stage.reset()
+        self._first = True
         return self
 
     def __next__(self):
-        self.stage.next()
-        if self.stage.stage == "N/A":
-            raise StopIteration
+        if self._first:
+            self._first = False
+            self.stage.reset()
+        else:
+            if self.stage.stage == "N/A":
+                raise StopIteration
+
+            self.stage.next()
 
         return copy.copy(self.stage)
 
