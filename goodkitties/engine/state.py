@@ -1,6 +1,6 @@
 import copy
 from dataclasses import dataclass
-from typing import Dict, Iterable, Optional
+from typing import Dict, Iterable, Iterator, Optional
 from .board import board_v2
 
 
@@ -52,42 +52,65 @@ class NestedPhase:
 
         return retval
 
-        # if self._first:
-        #     self._first = False
-        #     self._phasei = 0
-        #     if self._phases
-        # else:
-        #     self._phasei += 1
-        # if self._phasei >= len(self._phases):
-        #     raise StopIteration
 
+class Repeater:
+    def __init__(self, count, child: Iterable):
+        self._child = child
+        self._count = count
+        self._counter = -1
+        self._iter: Iterator = None
 
-class RoundRobin:
-    def __init__(self, count, _):
-        pass
+    def __iter__(self):
+        self._counter = 0
+        self._iter = self._child.__iter__()
+        return self
+
+    def __next__(self):
+        repeat = True
+        retval = []
+        while repeat:
+            repeat = False
+            try:
+                retval = self._iter.__next__()
+            except StopIteration:
+                self._counter += 1
+                if self._counter >= self._count:
+                    raise StopIteration
+                self._iter = self._child.__iter__()
+                repeat = True
+
+        return [self._counter] + retval
+
 
 class Counter:
     def __init__(self, count):
-        pass
+        self._count = count
 
-class TurnStage:
-    stages = {
-        "re-supply": None,
-        "mice": None,
-        "kitties": RoundRobin(4,{#kitty_count, {
-            "draw": None,
-            "check cleanliness": None,
-            "actions": Counter(4),#actions_per_turn),
-            "increase dirtiness": None,
-            "discard": None,
-        }),
-        "dog": None
-    }
-    #kitty_order = ["draw", "check cleanliness", "actions", "increase dirtiness", "discard"]
-    kitty_stages = ["actions"]
+    def __iter__(self):
+        return range(1, self._count + 1)
+
+
+def default_turn_phase(kitty_count=4):
     actions_per_turn = 4
 
+    return NestedPhase({
+        "re-supply": None,
+        "mice": None,
+        "kitties": Repeater(kitty_count, NestedPhase({
+            "draw": None,
+            "check cleanliness": None,
+            "actions": Counter(actions_per_turn),  # actions_per_turn),
+            "increase dirtiness": None,
+            "discard": None,
+        })),
+        "dog": None
+    })
+
+
+class TurnStage:
+
     def __init__(self, kitty_count=4):
+        self.stages = default_turn_phase(kitty_count)
         self.stagei: int = -1
         self._kittyi: int = -1
         self.kitty_stagei: int = -1
