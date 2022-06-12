@@ -84,14 +84,6 @@ class Repeater:
         return self._parent_val + child_val
 
 
-class Counter:
-    def __init__(self, count):
-        self._count = count
-
-    def __iter__(self):
-        return [[x] for x in range(1, self._count + 1)].__iter__()
-
-
 def default_turn_phase(kitty_count=4):
     actions_per_turn = 4
 
@@ -101,7 +93,7 @@ def default_turn_phase(kitty_count=4):
         "kitties": Repeater([[x] for x in iter(range(1, kitty_count + 1))], NestedPhase({
             "draw": None,
             "check cleanliness": None,
-            "actions": Counter(actions_per_turn),  # actions_per_turn),
+            "actions": [[x] for x in range(actions_per_turn, 0, -1)],
             "increase dirtiness": None,
             "discard": None,
         })),
