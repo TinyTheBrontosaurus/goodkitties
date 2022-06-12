@@ -29,15 +29,15 @@ def test_nested_phase_2():
 
 def test_repeater():
     # Arrange
-    out = state.Repeater(3, state.NestedPhase({"A": None, "B": None}))
+    out = state.Repeater([[1], [2], [3]], state.NestedPhase({"A": None, "B": None}))
 
     # Act
     actual = [x for x in out]
 
     # Assert
-    assert actual == [["A"], ["B"], ["A"], ["B"], ["A"], ["B"]]
+    assert actual == [[1, "A"], [1, "B"], [2, "A"], [2, "B"], [3, "A"], [3, "B"]]
 
-def test_default_turn_phase():
+def test_default_turn_phase(snapshot):
     # Arrange
     out = state.default_turn_phase()
 
@@ -45,7 +45,7 @@ def test_default_turn_phase():
     actual = [x for x in out]
 
     # Assert
-    assert actual == [["one"], ["two", "A"], ["two", "B"], ["three"]]
+    snapshot.assert_match(actual)
 
 
 def test_turn_order():

@@ -1,0 +1,204 @@
+{
+    "snappiershot_version": "1.1.0",
+    "tests": {
+        "test_default_turn_phase": [
+            {
+                "metadata": {
+                    "arguments": {},
+                    "test_runner_provided_name": "",
+                    "update_on_next_run": false,
+                    "user_provided_name": ""
+                },
+                "snapshots": [
+                    [
+                        [
+                            "re-supply"
+                        ],
+                        [
+                            "mice"
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "draw"
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "check cleanliness"
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "actions",
+                            1
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "actions",
+                            2
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "actions",
+                            3
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "actions",
+                            4
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "increase dirtiness"
+                        ],
+                        [
+                            "kitties",
+                            1,
+                            "discard"
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "draw"
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "check cleanliness"
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "actions",
+                            1
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "actions",
+                            2
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "actions",
+                            3
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "actions",
+                            4
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "increase dirtiness"
+                        ],
+                        [
+                            "kitties",
+                            2,
+                            "discard"
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "draw"
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "check cleanliness"
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "actions",
+                            1
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "actions",
+                            2
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "actions",
+                            3
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "actions",
+                            4
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "increase dirtiness"
+                        ],
+                        [
+                            "kitties",
+                            3,
+                            "discard"
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "draw"
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "check cleanliness"
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "actions",
+                            1
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "actions",
+                            2
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "actions",
+                            3
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "actions",
+                            4
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "increase dirtiness"
+                        ],
+                        [
+                            "kitties",
+                            4,
+                            "discard"
+                        ],
+                        [
+                            "dog"
+                        ]
+                    ]
+                ]
+            }
+        ]
+    }
+}

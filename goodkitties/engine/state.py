@@ -54,32 +54,34 @@ class NestedPhase:
 
 
 class Repeater:
-    def __init__(self, count, child: Iterable):
+    def __init__(self, parent: Iterable, child: Iterable):
+        self._parent = parent
         self._child = child
-        self._count = count
-        self._counter = -1
-        self._iter: Iterator = None
+        self._parent_iter: Iterator = None
+        self._child_iter: Iterator = None
+
+        self._parent_val = None
 
     def __iter__(self):
-        self._counter = 0
-        self._iter = self._child.__iter__()
+        self._parent_iter = self._parent.__iter__()
+        self._parent_val = self._parent_iter.__next__()
+        self._child_iter = self._child.__iter__()
         return self
 
     def __next__(self):
         repeat = True
-        retval = []
+        child_val = []
         while repeat:
             repeat = False
             try:
-                retval = self._iter.__next__()
+                child_val = self._child_iter.__next__()
             except StopIteration:
-                self._counter += 1
-                if self._counter >= self._count:
-                    raise StopIteration
-                self._iter = self._child.__iter__()
+                # This would throw to end the iteration
+                self._parent_val = self._parent_iter.__next__()
+                self._child_iter = self._child.__iter__()
                 repeat = True
 
-        return [self._counter] + retval
+        return self._parent_val + child_val
 
 
 class Counter:
@@ -87,7 +89,7 @@ class Counter:
         self._count = count
 
     def __iter__(self):
-        return range(1, self._count + 1)
+        return [[x] for x in range(1, self._count + 1)].__iter__()
 
 
 def default_turn_phase(kitty_count=4):
@@ -96,7 +98,7 @@ def default_turn_phase(kitty_count=4):
     return NestedPhase({
         "re-supply": None,
         "mice": None,
-        "kitties": Repeater(kitty_count, NestedPhase({
+        "kitties": Repeater([[x] for x in iter(range(1, kitty_count + 1))], NestedPhase({
             "draw": None,
             "check cleanliness": None,
             "actions": Counter(actions_per_turn),  # actions_per_turn),
